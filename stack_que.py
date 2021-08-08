@@ -24,6 +24,7 @@ def solution(progresses, speeds):
 	
 # 프린트기 
 ## 내가 짠 코드 - 테스트 케이스는 맞는데 범용성에서 실패
+## 다시 풀기
 
 def solution(priorities, location):
     que = [(i,j) for i,j in enumerate(priorities)]
@@ -39,6 +40,30 @@ def solution(priorities, location):
             break
         
     return(que.index(queque[location]) + 1)
+
+
+
+# 다리를 지나는 트럭
+## 다시 풀기
+
+
+
+
+# 주식 가격
+def solution(prices):
+	answer = [0]*len(prices)
+	for i in range(len(prices)):
+		for j in range(i+1, len(prices)):
+			if prices[i] <= prices[j]:
+				answer[i] += 1
+			else:
+				answer[i] += 1
+				break
+	return answer
+
+
+
+
 
 
 
