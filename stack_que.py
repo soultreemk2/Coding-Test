@@ -1,3 +1,30 @@
+
+# 기능 개발
+
+## stack에다가 배포 일수를 쫙 넣어놓고서 이후에 조건문을 걸지 말고, 배포 일수를 계산하면서 조건문도 함께 걸어줄 것. 
+
+import math
+
+def solution(progresses, speeds):
+    stack = []
+    
+    # stack을 쌓으면서, 그 다음 배포 일수랑 바로 직전 stack값 비교하는 조건문
+    for p,s in zip(progresses, speeds):
+        if len(stack)==0:
+            stack.append([math.ceil((100-p)/s),1])
+            
+        elif math.ceil((100-p)/s) > stack[-1][0]:
+            stack.append([math.ceil((100-p)/s),1])
+
+        else:
+            stack[-1][1] += 1
+            
+    return [s[1] for s in stack]
+  
+
+
+
+'''
 ###### while True: 문 완벽 이해하기 ######
 
 
@@ -24,7 +51,7 @@ while True:
 
     else:
         print('>> wrong answer!')
-
+'''
 	
 	
 # 프린트기 
