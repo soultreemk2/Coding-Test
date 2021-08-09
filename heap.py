@@ -1,8 +1,29 @@
 # 더 맵게
+## (내가 짠거)
 
+import heapq
 
+def solution(scoville,K):
+    solution = 0
+    heapq.heapify(scoville)
+        
+    while len(scoville) > 1:
+        a = heapq.heappop(scoville)
+        b = heapq.heappop(scoville)
+        solution += 1
+        heapq.heappush(scoville, a+2*b)
 
-
+        if scoville[0] >= K:
+            return solution
+        
+    # while문을 다 돌고 난 후에도 (즉 a,b를 heap에 계속 넣어주는 작업을 scoville에 원소가 남아있을 때 까지 무한 반복) 했음에도
+    # 첫번째 요소가 k보다 값이 작으면 답을 찾을 수 없는 경우임
+    if scoville[0] < K:
+        return -1
+    
+    
+    
+    
 
 
 
