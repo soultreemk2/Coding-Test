@@ -41,3 +41,27 @@ for _ in range(len(nums)-k):
     
 print(heapq.heappop(nums))
 >>> 5
+
+
+## 최대 힙
+# 힙에 튜플(tuple)를 원소로 추가하거나 삭제하면, 튜플 내에서 맨 앞에 있는 값을 기준으로 최소 힙이 구성되는 원리를 이용
+
+nums = [4, 1, 7, 3, 8, 5]
+heap = []
+
+for num in nums:
+  heapq.heappush(heap, (-num, num))  # (우선 순위, 값)
+
+print(heap)
+>>> [(-8, 8), (-7, 7), (-5, 5), (-1, 1), (-3, 3), (-4, 4)]
+
+while heap:
+  print(heapq.heappop(heap)[1])  # 값을 읽어올 때는 각 튜플에서 인덱스 1에 있는 값을 취하면 됨 (우선순위에는 관심 x)
+
+print(heap)
+>>> 8 7 5 1 3 4
+
+
+
+
+
