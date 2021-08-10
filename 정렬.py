@@ -10,8 +10,45 @@ def solution(array, commands):
   
   
   
-  # 가장 큰 수
+# 가장 큰 수
+## 다시 풀기
   
+def solution(numbers):
+    numbers = list(map(str, numbers))
+    numbers.sort(key=lambda x: x*3, reverse=True)
+    return str(int(''.join(numbers)))
+
+
+
+
+# 
+
+
+
+
+# 추가문제 - leetcode next permutation
+# https://jins-dev.tistory.com/entry/%EB%8B%A4%EC%9D%8C-%EC%88%9C%EC%97%B4-%EC%B0%BE%EA%B8%B0-%EC%A0%84%EC%B2%B4-%EC%88%9C%EC%97%B4-%ED%83%90%EC%83%89-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-Next-Permutation
+    
+def next_permutation(arr):
+    i,j = len(arr)-1, len(arr)-1
+    
+    while i> 0 and arr[i-1]>=arr[i]: # 만족하면 stop임
+        i -= 1
+    
+    if i==0:
+        arr.reverse()
+        return arr
+    elif i == len(arr)-1:
+        arr[-1],arr[-2] = arr[-2], arr[-1]
+        return arr
+    
+    
+    while arr[i-1] >= arr[j]:
+        j -= 1
+    
+    arr[i-1],arr[j] = arr[j],arr[i-1]
+    
+    return arr[0:i] + sorted(arr[i:])
   
   
   
