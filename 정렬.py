@@ -20,8 +20,15 @@ def solution(numbers):
 
 
 
+# H-index
 
-# 
+# h번 이상 인용된 논문의 개수 couting (count_1) & 해당 논문 list에 담기 (list_1)
+# h번 이상 인용되지 않은 논문: list_2 = citations - list_1 
+
+# 1. count_1 > h
+# 2. list_2 내의 모든 요소가 h 이하여야 함
+
+# 1,2번 조건을 만족하는 h값들 중 가장 큰 값을 return
 
 
 
@@ -43,15 +50,41 @@ def next_permutation(arr):
         return arr
     
     
-    while arr[i-1] >= arr[j]:
+    while arr[i-1] >= arr[j]:  # arr[i-1]이 항상 arr[j] 보다 작다면 j는 그대로 변함없이 len(arr)-1 이 추출
         j -= 1
     
     arr[i-1],arr[j] = arr[j],arr[i-1]
     
     return arr[0:i] + sorted(arr[i:])
   
+    
   
-  
+## 다른 풀이 - 필패 코드
+
+def next_permutation_2(arr):
+    i,j = 0, len(arr)-1
+    
+    while i < len(arr)-1 and arr[i] < arr[i+1]:   # 이렇게하면 가장 마지막 i가 아니라 맨 앞의 i가 추출되게 됨
+        i += 1
+    
+    if i==0:
+        arr.reverse()
+        return arr
+    elif i == len(arr)-1:
+        arr[-1],arr[-2] = arr[-2], arr[-1]
+        return arr
+    
+    
+    while arr[i-1] < arr[j]:
+        j += 1
+    
+    arr[i-1],arr[j] = arr[j],arr[i-1]
+    
+    return arr[0:i] + sorted(arr[i:])
+
+
+
+
   
   
 ############################# list, map 함수 #####################################
