@@ -30,7 +30,8 @@ def solution(numbers):
 
 # 1,2번 조건을 만족하는 h값들 중 가장 큰 값을 return
 
-### 다시 풀기 - 시간 초과
+
+### 시간 초과
 def solution(citations):
     citations.sort()
     h = 0
@@ -54,7 +55,7 @@ def solution(citations):
     return max(h_list)
 
 
-# 다른 풀이 - 시간 초과
+### 시간 초과
 
 def solution(citations):
     citations.sort()
@@ -74,6 +75,8 @@ def solution(citations):
         
     return max(h_list)
 
+
+## 문제해결 접근 자체가 너무 복잡했음. h값을 하나씩 증가하는 접근 --> for i in range(len(citations))
 # 정답 풀이1
 def solution(citations):
   sorted_citations = sorted(citations, reverse=True)
@@ -93,6 +96,7 @@ def solution(citations):
         if citations[i] >= l-i:
             return l-i
     return 0
+
 
 
 # 추가문제 - leetcode next permutation
@@ -121,6 +125,7 @@ def next_permutation(arr):
   
     
   
+
 ## 다른 풀이 - 필패 코드
 
 def next_permutation_2(arr):
