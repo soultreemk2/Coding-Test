@@ -30,7 +30,7 @@ def solution(numbers):
 
 # 1,2번 조건을 만족하는 h값들 중 가장 큰 값을 return
 
-
+### 다시 풀기 - 시간 초과
 while h < max(citations):
     list_1 = []
     count_1, count_2 = 0, 0
