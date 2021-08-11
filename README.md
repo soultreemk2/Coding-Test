@@ -29,6 +29,75 @@ graph = {
 }
 ```
 
+#### DFS로 그래프 탐색
+1) 스택으로 구현
+```
+def iterative_dfs(start_v):
+  discovered = []
+  stack = [start_v]
+  while stack:
+    v = stack.pop()
+    if v not in discovered:
+      discovered.append(v)
+      for w in graph[v]:
+        stack.append(w)
+        
+  return discovered
+
+
+## 변수명을 이해 쉽게 
+
+def iterative_dfs(start):
+    visit_record = []
+    next_visit_list = [start]
+
+    while next_visit_list:
+        now_visit = next_visit_list.pop()
+
+        if now_visit not in visit_record:
+            visit_record.append(now_visit)
+
+            for w in graph[now_visit]:
+                next_visit_list.append(w)
+                
+    return visit_record
+```
+
+2) 재귀 구조로 구현
+```
+def recursive_dfs(v, discovered=[]):
+  discovered.append(v)
+  for w in graph[v]:
+    if not w in discovered:
+      discovered = recursive_dfs(w, discovered)
+      
+  return discovered
+```
+
+
+#### BFS로 그래프 탐색
+1) 큐로 구현
+```
+def iterative_bfs(start_v):
+  discovered = [start_v]
+  queue = [start_v]
+  
+  while queue:
+    v = queue.pop(0)
+    for w in graph[v]:
+      if w not in discovered:
+        discovered.append(w)
+        queue.append(w)
+        
+  return discovered
+```
+
+2) 재귀로 구현 불가. 명심!
+
+
+
+
+
 
 
 
