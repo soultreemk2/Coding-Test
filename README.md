@@ -15,3 +15,11 @@ DFS, BFS (깊이, 너비 우선탐색)
 - 큐로 구현 (그래프 최단 경로 구하는 문제에 사용)
 
 # ![image](https://user-images.githubusercontent.com/50647833/129039103-9f6bb880-f74d-4d72-8fcc-65450ae70fc4.png)
+
+그래프를 표현하는 방법 : 인접리스트 (출발노드를 key, 도착노드를 value로)
+'''
+graph = { 1: [2,3,4], 
+'''
+
+
+
