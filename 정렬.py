@@ -31,28 +31,50 @@ def solution(numbers):
 # 1,2번 조건을 만족하는 h값들 중 가장 큰 값을 return
 
 ### 다시 풀기 - 시간 초과
-h = 0
-h_list = []
-
-while h < max(citations):
-    list_1 = []
-    count_1, count_2 = 0, 0
-    for c in citations:
-        if c >= h:
-            count_1 += 1
-            list_1.append(c)
-            list_2 = list(set(citations) - set(list_1))
-
-    for n in list_2:
-        if n <= h:
-            count_2 += 1
-
-    if count_1 >= h and count_2 == len(list_2):
-        h_list.append(h)
+def solution(citations):
+    citations.sort()
+    h = 0
+    h_list = []
     
-    h += 1
+    while h < citations[-2]:
+        count_2 = 0
+        for i in range(len(citations)):
+            if citations[i]>=h:
+                count_1 = len(citations[i:])
+                break
+
+        for n in citations[:i-1]:
+            if n <= h:
+                count_2 += 1
+
+        if count_1 >= h and count_2 == len(citations[:i-1]):
+            h_list.append(h)
+
+        h += 1
+    return max(h_list)
+
+
+# 다른 풀이
+
+def solution(citations):
+    citations.sort()
+    h = 0
+    h_list = []
     
-print(max(h_list))   
+    while h < citations[-2]:
+        for i in range(len(citations)):
+            if citations[i]>=h:
+                count_1 = len(citations[i:])
+                break
+
+        if count_1 >= h :
+            h_list.append(h)
+            
+        h += 1
+        
+    return max(h_list)
+
+
 
 
 
