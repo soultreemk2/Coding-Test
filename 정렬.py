@@ -54,7 +54,7 @@ def solution(citations):
     return max(h_list)
 
 
-# 다른 풀이
+# 다른 풀이 - 시간 초과
 
 def solution(citations):
     citations.sort()
@@ -74,9 +74,25 @@ def solution(citations):
         
     return max(h_list)
 
+# 정답 풀이1
+def solution(citations):
+  sorted_citations = sorted(citations, reverse=True)
+  for i in range(len(sorted_citations)):
+    if sorted_citations[i] <= i: 
+      return i
+  return len(sorted_citations)
 
 
+# 정답 풀이 2
 
+
+def solution(citations):
+    citations = sorted(citations)
+    l = len(citations)
+    for i in range(l):
+        if citations[i] >= l-i:
+            return l-i
+    return 0
 
 
 # 추가문제 - leetcode next permutation
