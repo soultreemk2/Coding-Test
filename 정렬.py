@@ -31,6 +31,27 @@ def solution(numbers):
 # 1,2번 조건을 만족하는 h값들 중 가장 큰 값을 return
 
 
+while h < max(citations):
+    list_1 = []
+    count_1, count_2 = 0, 0
+    for c in citations:
+        if c >= h:
+            count_1 += 1
+            list_1.append(c)
+            list_2 = list(set(citations) - set(list_1))
+
+    for n in list_2:
+        if n <= h:
+            count_2 += 1
+
+    if count_1 >= h and count_2 == len(list_2):
+        h_list.append(h)
+    
+    h += 1
+    
+print(max(h_list))   
+
+
 
 
 # 추가문제 - leetcode next permutation
@@ -121,7 +142,17 @@ c = sorted(a, key = lambda x : x[0])
 d = sorted(a, key = lambda x : x[1]) 
 >>> d = [(3, 0), (5, 1), (0, 1), (1, 2), (5, 2)]
 
-
-
   
+  
+######################### list - list (리스트끼리 빼서 중복 요소 제거) ######################################
+a = [1,2,3]
+b = [1,2]
+
+[x for x in a if x not in b]
+>> [3]
+
+list(set(a) - set(b))
+>> [3]
+
+ 
   
