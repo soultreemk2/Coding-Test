@@ -33,17 +33,19 @@ def solution(answer):
 
 
 # 소수 찾기
-
 from itertools import permutations
 
 def solution(numbers):
     # 소수 판별 함수 정의
     def is_prime_number(x):
-        for i in range(2, x):
-            if x % i == 0:
-                return 0 # 소수가 아님
+        if x == 1:
+            return False
+        else:
+            for i in range(2, x):
+                if x % i == 0:
+                    return False # 소수가 아님
 
-        return 1 # true이면 소수    
+        return True 
     
     
     # 모든 조합의 수 나열
@@ -55,13 +57,14 @@ def solution(numbers):
         perm = list(permutations(numbers,i+1))
         for j in range(len(perm)):
             numbers_all.append(''.join(perm[j]))
-            numbers_final = list(set(numbers_all))
+            numbers_final = list(set(numbers_all))  
+            ## [0,1,1] 처럼 동일한 숫자가 리스트에 여러번 있을 경우 permutation이 동일한거 여러번 나옴 
+            #  --> set 적용
 
     ## 이때 배열에서 0으로 시작하는 숫자는 제거 (중복방지) 
-    ## & 소수판별함수가 2이상 숫자만 판단 가능하므로 1인 숫자는 제거
-
+    
     for n in numbers_final:
-        if n.startswith('0') or n == '1':
+        if n.startswith('0'):
             temp.append(n)
             numbers_final = list(set(numbers_final) - set(temp))    
     
@@ -79,12 +82,50 @@ def solution(numbers):
 # 소수란 '1과 자기자신'을 제외한 숫자로 나누어지지 않는 수
 
 def is_prime_number(x):
-    # 2부터 (x - 1)까지의 모든 수를 확인하며
-    for i in range(2, x):
-        # x가 해당 수로 나누어떨어진다면
-        if x % i == 0:
-            return False # 소수가 아님
+    if x == 1:
+        return False
+    else:
+        for i in range(2, x): # 2부터 (x - 1)까지의 모든 수를 확인하며
+            if x % i == 0:    # x가 해당 수로 나누어떨어진다면
+                return False # 소수가 아님
         
     return True # for문에서 if문에 걸러지는게 아무것도 없으면, 즉 1과 자신을 제외한 수로는 나누어지지 않으면 소수임
 
 
+
+############### permutation, combination ##########################
+
+from itertools import permutations
+
+a = [1,2,3]
+permute = permutations(a,2)
+
+print(list(permute))
+>>> [(1,2),(1,3),(2,1),(2,3),(3,1),(3,2)]
+
+
+a = [1,2,3]
+combi = combinations(a,2)
+    
+print(list(combi))
+>>> [(1,2),(1,3),(2,3)]
+
+
+
+#################### 문자열  ##########################
+# 문자열 나누기
+str = "Hi my name is limcoing" 
+splitted_str = str.split() 
+print(splitted_str)
+>>> ['Hi', 'my', 'name', 'is', 'limcoing'] 
+
+# 문자열 합치기
+joined_str = ''.join(splitted_str) 
+print(joined_str)
+>>> Himynameislimcoing
+
+
+a = ('1','2','5')
+a_join = ''.join(a)
+print(a_join)
+>>> 125
