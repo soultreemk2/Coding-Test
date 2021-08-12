@@ -34,7 +34,44 @@ def solution(answer):
 
 # 소수 찾기
 
+from itertools import permutations
 
+def solution(numbers):
+    # 소수 판별 함수 정의
+    def is_prime_number(x):
+        for i in range(2, x):
+            if x % i == 0:
+                return 0 # 소수가 아님
+
+        return 1 # true이면 소수    
+    
+    
+    # 모든 조합의 수 나열
+    temp = []
+    prime = []
+    numbers_all = []
+
+    for i in range(len(numbers)):
+        perm = list(permutations(numbers,i+1))
+        for j in range(len(perm)):
+            numbers_all.append(''.join(perm[j]))
+            numbers_final = list(set(numbers_all))
+
+    ## 이때 배열에서 0으로 시작하는 숫자는 제거 (중복방지) 
+    ## & 소수판별함수가 2이상 숫자만 판단 가능하므로 1인 숫자는 제거
+
+    for n in numbers_final:
+        if n.startswith('0') or n == '1':
+            temp.append(n)
+            numbers_final = list(set(numbers_final) - set(temp))    
+    
+    
+    # 소수 판별 함수 적용
+    result = []
+    for num in numbers_final:
+        result.append(is_prime_number(int(num)))
+    
+    return sum(result)
 
 
 
