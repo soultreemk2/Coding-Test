@@ -78,6 +78,30 @@ def solution(numbers):
 
 
 
+# 카펫
+
+def solution(brown, yellow):
+    x_list = []
+    y_list = []
+    xy_list = []
+    result = []
+    
+    for y in range(1,yellow+1):
+        if yellow % y == 0 and yellow // y >= y:
+            x_list.append(yellow // y)
+            y_list.append(y)
+
+    for i in range(len(x_list)):
+        xy_list.append((x_list[i],y_list[i]))
+
+    for xy in xy_list:
+        if (xy[0] + xy[1])*2 + 4 == brown and xy[0]*xy[1] == yellow:
+            return [xy[0]+2,xy[1]+2]
+
+
+
+
+
 ########################## 소수 판별 알고리즘 ##########################
 # 소수란 '1과 자기자신'을 제외한 숫자로 나누어지지 않는 수
 
