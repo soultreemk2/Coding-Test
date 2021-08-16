@@ -1,4 +1,4 @@
-# 타겟 넘버
+# 프로그래머스 - 타겟 넘버
 
 
 
@@ -40,11 +40,30 @@ def letterCombinations(self, digits:str) -> List[str]:
 
 
 
+
+
+
+
+
+
+
 # 파알인- 부분 집합
+result = []
 
+def dfs(nums, index, path):
+    result.append(path)
+    
+    for i in range(index, len(nums)):
+        dfs(nums, i+1, path + [nums[i]])
+        
+    return result
 
-
-
-
+def solution(nums):
+    answer = dfs(nums, 0, [])
+    return answer
+  
+  
+>> solutions([1,2,3])
+>>> [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
 
 
