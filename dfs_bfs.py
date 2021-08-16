@@ -35,10 +35,52 @@ def letterCombinations(self, digits:str) -> List[str]:
 
 # 파알인- 조합의 합
 
+result = []
+
+def dfs(csum, index, path):
+    # 종료조건
+    if csum < 0:
+        return
+    if csum == 0:
+        result.append(path)
+        return
+    
+    for i in range(index, len(candidates)):
+        dfs(csum - candidates[i], i, path + [candidates[i]])
+        
+    return result  
+
+# candidates = [2,3,5]
+# target = 8
+
+>>> dfs(target, 0, [])
+>>> [[2, 2, 2, 2], [2, 3, 3], [3, 5]]
 
 
+## 프로그래머스 형식에 맞추면
+
+result = []
+
+def dfs(candidates, csum, index, path):
+    # 종료조건
+    if csum < 0:
+        return
+    if csum == 0:
+        result.append(path)
+        return
+    
+    for i in range(index, len(candidates)):
+        dfs(candidates, csum - candidates[i], i, path + [candidates[i]])
+        
+    return result  
+
+def solution(candidates, target):
+    answer = dfs(candidates, target,0,[])
+    return answer
 
 
+>>> solution([2,3,5],8)
+>>> [[2, 2, 2, 2], [2, 3, 3], [3, 5]]
 
 
 
