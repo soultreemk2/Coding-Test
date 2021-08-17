@@ -57,12 +57,46 @@ def stock3(stock):
   
 ----------------------------------------------------------------------------------
 # 태스크 스케줄러
+## 이해 못함. 다시 풀기
+
+def scheduler(tasks):
+    counter = collections.Counter(tasks)
+    result = 0
+
+    while True:
+        sub_count = 0
+
+        for task, _ in counter.most_common(n+1):
+            sub_count += 1
+            result += 1
+
+            counter.subtract(task)
+            # 0 이하 아이템을 목록에서 완전히 제거
+            counter += collections.Counter()
+
+        if not counter:
+            break
+        
+        result += n - sub_count + 1
+        
+    return result
 
 
 
+  
+----------------------------------------------------------------------------------
+# 쿠키 부여
 
-
-
-
+def coockies(g, s):
+    g.sort()
+    s.sort()
+    
+    i = j = 0
+    while i < len(g) and j < len(s):
+        if s[j] >= g[i]: # 크기 만족 --> 다음 아이 판단을 위해 i+1
+            i += 1       # 만족한 아이 수 count
+        j += 1           # 쿠키도 다음 쿠키로 j+1
+                         ## 만일 아이가 크기만족 못하면(if문 만족x) --> 아이는 그대로 두고 쿠키만 그 다음 쿠키로 재판단
+    return i
 
 
