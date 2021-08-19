@@ -139,7 +139,77 @@ def solution(n, lost, reserve):
 
 ----------------------------------------------------------------------------------
 
-# 조이스틱 
+# 조이스틱 - 다시 풀기
+## 틀린 코드 - A가 연달아 나오는 경우를 고려 못함
+def solution(name):
+    dic = {'A':1,'B':2,'C':3,'D':4,'E':5,'F':6,'G':7,
+           'H':8,'I':9,'J':10,'K':11,'L':12,'M':13,'N':14,
+           'O':13,'P':12,'Q':11,'R':10,'S':9,'T':8,'U':7,
+           'V':6,'W':5,'X':4,'Y':3,'Z':2}
+    
+    abc = []
+    name2 = [i for i in name if i not in ['A']]
+    
+    for i in range(len(name2)):
+        abc.append(dic[name2[i]] - 1)
+
+    if 'A' in name:
+        if (name[1] == 'A' or name[0] == 'A') and name[-1] == 'A':
+            move = len(name) - 3 
+        elif name[1] == 'A' or name[0] == 'A':
+            move = len(name) - 2
+    else:
+        move = len(name) - 1
+        
+    return sum(abc) + move
+
+
+# 정답코드1
+def solution(name):
+    answer = 0
+    min_move = len(name) - 1
+    next = 0
+    
+    for i, char in enumerate(name):
+        answer += min(ord(char) - ord('A'), ord('Z') - ord(char) + 1)
+        
+        next = i + 1
+        while next < len(name) and name[next] == 'A':
+            next += 1
+        
+        min_move = min(min_move, i + i + len(name) - next)
+    answer += min_move
+    return answer
+
+
+#정답코드2
+
+def solution(name):
+    change = [min(ord(i) - ord("A"), ord("Z") - ord(i)+1) for i in name]
+    idx, answer = 0, 0
+
+    while True:
+        answer += change[idx]
+        change[idx] = 0
+
+        if sum(change) == 0:
+            break
+
+        left, right = 1, 1
+        while change[idx - left] == 0:
+            left += 1
+
+        while change[idx + right] == 0:
+            right += 1
+
+        answer += left if left < right else right
+        idx += -left if left < right else right
+        
+    return answer
+
+
+----------------------------------------------------------------------------------
+# 큰 수 만들기
 
 
 
@@ -166,11 +236,18 @@ a2 = [i for i in a if i not in b]
 b2 = [j for j in b if j not in a]
 >> a2: [1],  b2: [5,6]
 
-## 동일 코드
+## set을 써도 나오나, 단점: set함수가 중복 요소를 제거함
 a2 = list(set(a) - set(b))
 b2 = list(set(b) - set(a))
 
+# name에서 'A'만 제거 하고 싶을 경우,
+name = "ADBDC"
 
+list(set(name) - set(['A']))          # ['D','B','C'] 만 출력
+
+[i for i in name if i not in ['A']]  # ['D','B','D','C'] 출력
+
+ 
 # 중복된 요소만 추출
 a2 = [i for i in a if i in b]
 b2 = [j for j in b if j in a]
