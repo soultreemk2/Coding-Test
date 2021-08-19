@@ -107,5 +107,84 @@ def coockies(g, s):
 #### 프로그래머스 문제 ####
 
 # 체육복
+## 틀린 코드 - 정확도 50%
+def solution(n, lost, reserve):
+    reserve_2 = [r for r in reserve if r not in lost]
+    lost_2 = [l for l in lost if l not in reserve]
+    reserve_2.sort()
+    lost_2.sort()
+    
+    i = j = 0
+    while i < len(lost_2) and j < len(reserve_2):
+        if lost_2[i] == reserve_2[j]+1 or lost_2[i] == reserve_2[j]-1:
+            i += 1
+        j += 1
+            
+    return n - len(lost_2) + i
+
+
+## 정답 코드
+
+def solution(n, lost, reserve):
+    _reserve = [r for r in reserve if r not in lost]
+    _lost = [l for l in lost if l not in reserve]
+    
+    for r in _reserve:
+        if r-1 in _lost:
+            _lost.remove(r-1)
+        elif r+1 in _lost:
+            _lost.remove(r+1)
+            
+    return n - len(_lost)
+
+----------------------------------------------------------------------------------
+
+# 조이스틱 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################## 두 리스트 간 중복 요소 추출/제거 #####################
+a = [1,2,3]
+b = [2,3,5,6]
+
+# 중복되지 않은 요소만 추출
+a2 = [i for i in a if i not in b]
+b2 = [j for j in b if j not in a]
+>> a2: [1],  b2: [5,6]
+
+## 동일 코드
+a2 = list(set(a) - set(b))
+b2 = list(set(b) - set(a))
+
+
+# 중복된 요소만 추출
+a2 = [i for i in a if i in b]
+b2 = [j for j in b if j in a]
+>> a2: [2,3],  b2: [2,3]
+
+
+
+
+
+
+
+
+
+
+
 
 
