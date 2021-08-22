@@ -55,6 +55,8 @@ def stock3(stock):
 
   
   
+    
+    
   
   
 ----------------------------------------------------------------------------------
@@ -216,6 +218,7 @@ def solution(name):
 2. list(combination(idx,k))
 3. 2번에서 나온 인덱스 모음들을 nums에서 제외. --> append해서 max함수
               
+              
 # 정답 풀이
 def solution(number, k):
     # stack에 입력값을 순서대로 삽입 
@@ -237,11 +240,60 @@ def solution(number, k):
     return ''.join(stack)
 
 
+----------------------------------------------------------------------------------
+# 구명보트
+              
+## 투 포인터
+def solution(people, limit):
+    people.sort()
+    temp = []
+    a = 0
+    b = len(people) - 1
+    
+    while a < b:
+        if people[a] + people[b] <= limit:
+            a += 1
+            temp.append(people[a])
+            temp.append(people[b])
+        b -= 1
+        
+    return len(people) - len(temp) + len(temp)//2
+  
+              
+def solution(people, limit):
+    answer = 0
+    
+    people.sort()
+    a = 0
+    b = len(people) - 1
+    
+    while a < b:
+        if people[a] + people[b] <= limit:
+            a += 1
+            answer += 1
+        b -= 1
+        
+    # 보트 수 + 남은 인원
+    return answer + (len(people) - 2*answer)
+    
+         
+## stack으로도 풀 수 있음
 
-
-
-
-
+def solution(people, limit):
+    answer = 0
+    poo = sorted(people)
+    while poo:
+        if len(poo) == 1:
+            answer += 1
+            break
+        if poo[0] + poo[-1] > limit:
+            poo.pop()
+            answer += 1
+        else:
+            poo.pop(0)
+            poo.pop()
+            answer += 1
+    return answer              
 
 
 
