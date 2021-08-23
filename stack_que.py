@@ -7,20 +7,72 @@ import math
 def solution(progresses, speeds):
     stack = []
     
-    # stack을 쌓으면서, 그 다음 배포 일수랑 바로 직전 stack값 비교하는 조건문
     for p,s in zip(progresses, speeds):
-        if len(stack)==0:
+        # stack이 비어있으면 맨 앞에 넣어주고 시작 (그래야 비교할 수가 생성됨)
+        if len(stack) == 0:
             stack.append([math.ceil((100-p)/s),1])
             
-        elif math.ceil((100-p)/s) > stack[-1][0]:
+        # 기존 stack에 있는 수랑 다음으로 들어올 수를 판단
+        elif stack[-1][0] < math.ceil((100-p)/s):
             stack.append([math.ceil((100-p)/s),1])
-
         else:
             stack[-1][1] += 1
             
     return [s[1] for s in stack]
-  
+        
+        
+## 다른 풀이
 
+# [[5], [10,1,1], [20,2]] 이런식으로 묶은 후 각 길이 return
+import math 
+def solution(progresses, speeds):
+    stack = []
+    
+    for p,s in zip(progresses, speeds):
+        # stack이 비어있으면 맨 앞에 넣어주고 시작
+        if len(stack) == 0:
+            stack.append([math.ceil((100-p)/s)])
+            
+        # 기존 stack에 있는 수랑 다음으로 들어올 수를 판단
+        elif stack[-1][0] < math.ceil((100-p)/s):
+            stack.append([math.ceil((100-p)/s)])
+        else:
+            stack[-1].append(math.ceil((100-p)/s))
+            
+    return [len(s) for s in stack]
+        	
+	
+	
+## 다른 풀이 - pop() append() 활용 
+
+# progresses = [93,30,5] / speeds = [1,30,5] / [7,3,9]
+
+def solution(progresses, speeds):
+    answer = []
+    time = 0
+    count = 0
+    while len(progresses)> 0:
+        if (progresses[0] + time*speeds[0]) >= 100:
+            progresses.pop(0)
+            speeds.pop(0)
+            count += 1
+        else:
+            if count > 0:
+                answer.append(count)
+                count = 0
+            time += 1
+    answer.append(count)
+    return answer
+	
+# (progresses[0] + time*speeds[0]) >= 100 이 될때까지 time을 계속 늘려나감 (ex. time=7일때까지)
+# 100을 만족하면 pop(0), count 증가
+# 해당 time값 (7) 으로 그 다음 요소도 만족하는지 판단
+# 만족하면 계속 pop(0), count 계속 증가 (+1) 
+# 해당 time값 (7) 으로는 더이상 100이 넘어가지 않으면 즉 만족 안하면,
+# 지금까지 쌓아둔 count는 반환하고, count=0으로 초기화한 후 다시 첫번째 부터 반복
+	
+	
+--------------------------------------------------------------------------------------------
 	
 # 프린트기 
 ## 내가 짠 코드 - 테스트 케이스는 맞는데 범용성에서 실패
@@ -43,9 +95,27 @@ def solution(priorities, location):
 
 
 
+
+
+
+
+
+	
+--------------------------------------------------------------------------------------------
 # 다리를 지나는 트럭
 ## 다시 풀기
 
+
+
+
+
+
+
+
+
+
+	
+--------------------------------------------------------------------------------------------
 
 
 
