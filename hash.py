@@ -220,5 +220,41 @@ sorted_aa
 ########### defaultdict는 개수 셀때 말고 리스트 요소 묶을 때 쓸것 ###########
 # 갯수 세는 거는 collections.Counter 쓰기
 
+letters = 'dongdongfather'
+
+letters_dict = defaultdict(int)
+for k in letters:
+    letters_dict[k] +=1
+  
+>> letters_dict
+
+## 이것 보다는 
+collections.Counter(letters)
 
 
+## 다만 리스트(튜플)의 key별로 value를 묶고 싶을때는
+# (성,이름) 에서 성별로 이름을 묶을 때
+name_list = [('kim','sungsu'), ('kang','hodong'), ('park','jisung'), ('kim','yuna'), ('park','chanho'), ('kang','hodong')]
+ndict = defaultdict(list)
+
+for k,v in name_list:
+    ndict[k].append(v)
+  
+>> ndict
+>> defaultdict(list,
+            {'kang': ['hodong', 'hodong'],
+             'kim': ['sungsu', 'yuna'],
+             'park': ['jisung', 'chanho']})
+
+
+# 이때 중복 이름이 두 번 다 나옴 --> default를 set으로 설정
+nset = defaultdict(set)
+
+for k,v in name_list:
+    nset[k].add(v) # set함수는 append가 아니라 add
+  
+>> nset
+>> defaultdict(set,
+            {'kang': {'hodong'},
+             'kim': {'sungsu', 'yuna'},
+             'park': {'chanho', 'jisung'}})
