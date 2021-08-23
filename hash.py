@@ -140,20 +140,53 @@ def solution(J,S):
 # 중복 문자 없는 가장 긴 부분 문자열
 ## 투 포인터
 
+## 중복문자가 나타나면 거기서부터 start위치 재조정 --> 길이 다시 계산
 
-
-
-
+def solution(s):
+ used  = {}
+ max_length = start = 0
+ 
+ for index, char in enumerate(s):
+  # 이미 등장한 문자면 start위치 조정
+  if char in used and start <= used[char]:
+   start = used[char] + 1
+  # 길이 다시 계산
+  else:
+   max_length = max(max_length, index - start + 1)
+  
+  # 현재 위치도 항상 업데이트 --> 길이 측정 위해서
+  used[char] = index
+  
+ return max_length
 
 
 -----------------------------------------------------------------------------------------------------------------
 # 상위 k빈도 요소
+nums = [1,1,1,2,2,3]
+k = 2
  
- 
- 
- 
- 
- 
+freqs = collections.Counter(nums)
+heap = []
+
+for f in freqs: # f는 key를 의미 (1,2,3)
+    heapq.heappush(heap, (-freqs[f], f))  
+
+topk = []
+for _ in range(k):
+    topk.append(heapq.heappop(heap)[1])
+    
+# value의 가장 큰 값 k개를 추출할 것이므로
+# freqs[f] : value를 음수로 변환해서 넣기 (최소힙이므로) 
+# heap에서 총 k번 추출하면 됨. 이때 얻고싶은 것이 key이므로 [1]
+
+
+## 다른 풀이
+# value가 k 이상인것만 추출
+freq_lst = collections.Counter(nums).most_common(k) 
+
+answer = []
+for k, v in freq_lst:
+    answer.append(k) 
  
 
 
@@ -180,3 +213,12 @@ aa = ["12","56","123","567","1235"]
 sorted_aa = sorted(aa)
 sorted_aa
 >>> ['12', '123', '1235', '56', '567']
+
+
+
+
+########### defaultdict는 개수 셀때 말고 리스트 요소 묶을 때 쓸것 ###########
+# 갯수 세는 거는 collections.Counter 쓰기
+
+
+
