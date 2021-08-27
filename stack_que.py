@@ -75,30 +75,50 @@ def solution(progresses, speeds):
 --------------------------------------------------------------------------------------------
 	
 # 프린트기 
-## 내가 짠 코드 - 테스트 케이스는 맞는데 범용성에서 실패
-## 다시 풀기
 
-def solution(priorities, location):
-    que = [(i,j) for i,j in enumerate(priorities)]
-    queque = [(i,j) for i,j in enumerate(priorities)]
+# que에다가 queue에 있는 요소를 내림차순으로 정렬해서 append 한 뒤 location을 찾는 방식
+# queue.pop(0)가 나머지 요소의 최대값보다 작으면 queue뒤에 append
+# 나머지 요소의 최대값보다 크면 que에 새롭게 append
+# 해당 작업을 queue에 있는 모든 요소들에 반복 (즉, que길이가 priority길이와 같을때까지)
 
+## 이 코드의 문제점
+# max함수를 쓰면 queue의 마지막 요소가 pop되었을 때 비교할 요소가 없음
+# 따라서 queue의 마지막 요소는 pop한 후 비교 없이 바로 que에 append (len(que) == len(priorities) - 1)
+# 하지만 일부 케이스에서 time-out
+
+from collections import deque
+
+def solution(priorities,location):
+    que = []
+    queue = [(i,p) for i,p in enumerate(priorities)]
+    priority = [(i,p) for i,p in enumerate(priorities)]
+    
     while True:
-        aa = que.pop(0)
-
-        if aa[1] < max([que[i][1] for i in range(len(que))]):
-            que.append(aa)
+        cur = queue.pop(0)
+        if cur[1] < max(q[1] for q in queue):
+            queue.append(cur)
         else:
-            que.insert(0,aa)
-            break
-        
-    return(que.index(queque[location]) + 1)
+            que.append(cur)
+            if len(que) == len(priorities) - 1:
+                que.append(cur)
+                return(que.index(priority[location]) + 1)
+                break
 
 
-
-
-
-
-
+# any를 쓰면 문제 해결 - any는 빈 리스트와도 비교가 가능 (무조건false로 나옴)
+def solution(priorities,location):
+    que = []
+    queue = [(i,p) for i,p in enumerate(priorities)]
+    priority = [(i,p) for i,p in enumerate(priorities)]
+    while True:
+        cur = queue.pop(0)
+        if any(cur[1] < q[1] for q in queue):
+            queue.append(cur)
+        else:
+            que.append(cur)
+            if len(que) == len(priorities):   # 해당 조건을 만족할때까지 while문 반복
+                return que.index(priority[location]) + 1
+                break
 
 	
 --------------------------------------------------------------------------------------------
