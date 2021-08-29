@@ -123,18 +123,58 @@ def solution(priorities,location):
 	
 --------------------------------------------------------------------------------------------
 # 다리를 지나는 트럭
-## 다시 풀기
+## 코드 구조를 익혀두기
+
+def solution(bridge_length, weight, truck_weights):
+    ing = [0] * bridge_length
+    time = 0
+    wait = truck_weights
+    
+    while ing:
+        a = ing.pop(0)
+        time += 1
+        if wait:
+            if sum(ing) + wait[0] <= weight:
+                ing.append(wait[0])
+                wait.pop(0)
+            else:
+                ing.append(0)
+                
+    return time
 
 
+# 예시
+wait = [7,2,4,5,6]
+ing = [0,0,0]
+weight = 12
+
+time = 0
+while ing:  # ing리스트가 빌때까지 다음 코드를 반복
+    a = ing.pop(0)
+    time += 1
+    if wait: # 이 조건문을 걸어주지 않으면, wait요소가 다 빠져나갔을 때 wait.pop(0)가 실행X 
+             # 따라서 wait에 요소가 남을때까지만 조건문을 실행해주고, ing에 남아있는 요소들은 if문 밖 while문에서 처리 
+        if sum(ing) + wait[0] <= weight:
+            ing.append(wait[0])
+            wait.pop(0)
+        else:
+            ing.append(0)
+            
+    print(ing, wait)
+
+>>>
+[0, 0, 7] [2, 4, 5, 6]
+[0, 7, 2] [4, 5, 6]
+[7, 2, 0] [4, 5, 6]
+[2, 0, 4] [5, 6]
+[0, 4, 5] [6]
+[4, 5, 0] [6]
+[5, 0, 6] []
+[0, 6] []
+[6] []
+[] []
 
 
-
-
-
-
-
-
-	
 --------------------------------------------------------------------------------------------
 
 
