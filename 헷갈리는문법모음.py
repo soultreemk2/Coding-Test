@@ -1,4 +1,75 @@
-#################################### while True: 문 완벽 이해하기 ###########################################################
+
+##################### reduce 함수에 대해 정리  #####################
+## 앞선 계산에 누적해서 계산해줌
+reduce(lambda x, y: x+y, [1, 2, 3, 4, 5])
+# 10
+
+reduce(lambda x, y: x+y, [1, 2, 3, 4, 5], 10)
+## initializer에 10을 지정하면 10부터 시작
+# 25
+
+reduce(lambda x, y: x*y, range(1, 6))
+# 120
+
+
+
+###################### 문자열 list를 sort할 경우 ######################
+
+aa = ["12","56","123","567","1235"]
+
+sorted_aa = sorted(aa)
+sorted_aa
+>>> ['12', '123', '1235', '56', '567']
+
+
+
+
+########### defaultdict는 개수 셀때 말고 리스트 요소 묶을 때 쓸것 (vs collections.Counter) ###########
+# 갯수 세는 거는 collections.Counter 쓰기
+
+letters = 'dongdongfather'
+
+letters_dict = defaultdict(int)
+for k in letters:
+    letters_dict[k] +=1
+  
+>> letters_dict
+
+## 이것 보다는 
+collections.Counter(letters)
+
+
+## 다만 리스트(튜플)의 key별로 value를 묶고 싶을때는
+# (성,이름) 에서 성별로 이름을 묶을 때
+
+name_list = [('kim','sungsu'), ('kang','hodong'), ('park','jisung'), ('kim','yuna'), ('park','chanho'), ('kang','hodong')]
+ndict = defaultdict(list)
+
+for k,v in name_list:
+    ndict[k].append(v)
+  
+>> ndict
+>> defaultdict(list,
+            {'kang': ['hodong', 'hodong'],
+             'kim': ['sungsu', 'yuna'],
+             'park': ['jisung', 'chanho']})
+
+
+# 이때 중복 이름이 두 번 다 나옴 --> default를 set으로 설정
+nset = defaultdict(set)
+
+for k,v in name_list:
+    nset[k].add(v) # set함수는 append가 아니라 add
+  
+>> nset
+>> defaultdict(set,
+            {'kang': {'hodong'},
+             'kim': {'sungsu', 'yuna'},
+             'park': {'chanho', 'jisung'}})
+
+
+
+#################################### while True: 문 완벽 이해하기 ####################################################
 
 
 # 특정 input 값을 받기 전까지 계속해서 코드가 실행되게 하고 싶을 때 이용
@@ -70,52 +141,4 @@ queue.appendleft(2)
 queue
 >>> deque([2, 3, 4, 5, 6])
 
-
-
-#################################### defaultdict 완벽 이해하기 ##########################################################
-
-# 문자열에 나타난 알파벳 횟수 계산
-## 딕셔너리에 키가 있는지 확인 하고, 없으면 키를 만들어주고 초기값을 0으로 세팅해줌
-from collections import difaultdict
-
-letters = 'dongdongfather'
-letters_dict = defaultdict(int)
-
-for k in letters:
-	letters_dict[k] += 1
-	
-letters_dict
->>> defaultdict(<class:'int'>, {'d':2, 'o':2, 'n':2, 'g':2, 'f':1, 'a':1, 't':1, 'h':1, 'e':1, 'r':1})
-
-
-# list에서 여러개의 값을 합쳐야 한 때 
-## 성과 이름 튜플에서 각 성에 대한 이름들을 합치는 문제
-
-name_list = [('kim','sungsu'), ('kang','hodong'), ('park','jisung'), ('kim','yuna'), ('park','chanho'), ('kang','hodong')]
-ndict = defaultdict(list)
-
-for k,v in name_list:
-    ndict[k].append(v)]
-
-ndict
->>> defaultdict(list,
-            {'kang': ['hodong', 'hodong'],
-             'kim': ['sungsu', 'yuna'],
-             'park': ['jisung', 'chanho']})
-
-
-## hodong이 2번 중복 --> 초기값을 set으로 지정
-
-name_list = [('kim','sungsu'), ('kang','hodong'), ('park','jisung'), ('kim','yuna'), ('park','chanho'), ('kang','hodong')]
-nset = defaultdict(set)
-
-for k,v in name_list:
-    nset[k].add(v)     # list는 append로, set은 add로 요소 추가
-
-
->>> nset
-defaultdict(set,
-            {'kang': {'hodong'},
-             'kim': {'sungsu', 'yuna'},
-             'park': {'chanho', 'jisung'}})
 
