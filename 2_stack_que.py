@@ -123,7 +123,7 @@ def solution(priorities,location):
 	
 --------------------------------------------------------------------------------------------
 # 다리를 지나는 트럭
-## 코드 구조를 익혀두기
+## 코드 구조를 익혀두기 !!!!
 
 def solution(bridge_length, weight, truck_weights):
     ing = [0] * bridge_length
@@ -152,6 +152,7 @@ time = 0
 while ing:  # ing리스트가 빌때까지 다음 코드를 반복
     a = ing.pop(0)
     time += 1
+	
     if wait: # 이 조건문을 걸어주지 않으면, wait요소가 다 빠져나갔을 때 wait.pop(0)가 실행X 
              # 따라서 wait에 요소가 남을때까지만 조건문을 실행해주고, ing에 남아있는 요소들은 if문 밖 while문에서 처리 
         if sum(ing) + wait[0] <= weight:
@@ -174,22 +175,99 @@ while ing:  # ing리스트가 빌때까지 다음 코드를 반복
 [6] []
 [] []
 
+## 즉 [5,0,6] [] 이 되었을때 if wait문을 걸어줌으로써 sum(ing)~ 이하 구문이 실행되지 않고 while문 내의 ing.pop(0)만 계속 실행됨 (ing가 빌때까지)
 
---------------------------------------------------------------------------------------------
-
-
+------------------------------------------------------------------------------------------------------------------------------------------
 
 # 주식 가격
+
+## 풀이1
+
 def solution(prices):
-	answer = [0]*len(prices)
-	for i in range(len(prices)):
-		for j in range(i+1, len(prices)):
-			if prices[i] <= prices[j]:
-				answer[i] += 1
-			else:
-				answer[i] += 1
-				break
-	return answer
+    answer = [0]*len(prices) 
+    
+    for i in range(len(prices)-1):
+        for j in range(i+1, len(prices)):
+            if prices[i] <= prices[j]:
+                answer[i] += 1
+            else:         # [i] > [j] 인 구간을 만나면
+                answer[i] += 1
+                break    # j를 더이상 움직이지 않음, 그 다음 i로 넘어가기
+                
+    return answer
+
+
+## for i / for j 대신 while문 써도 가능
+
+def solution(prices):
+    answer = [0]*len(prices)    
+    
+    i = -1
+    while i < len(prices):
+        i += 1
+        for j in range(i+1, len(prices)):
+            if prices[i] <= prices[j]:
+                answer[i] += 1
+            else:
+                answer[i] += 1
+                break
+                
+    return answer
+
+
+
+## 풀이2
+# deque로 풀기
+
+
+def solution(prices):
+    answer = []
+    prices = deque(prices)
+    
+    while prices:  # prices 를 모두 탐색해서 [] 되면 stop
+        c = prices.popleft()
+	
+        count = 0
+#         for i in prices: # 나머지 숫자 하나씩 다 살펴보기
+#             if c > i:
+#                 count += 1
+#                 break	
+#            count += 1    # 계속 +1 누적하다가 if문(c>i)을 만나면 +1하고서 stop
+	
+        answer.append(count)
+        
+    return answer
+
+
+## 이렇게 해도 됨
+
+def solution(prices):
+    answer = []
+    prices = deque(prices)
+    
+    while prices:  # prices 를 모두 탐색해서 [] 되면 stop
+        c = prices.popleft()
+	
+        count = 0
+#         for i in prices: # 나머지 숫자 하나씩 다 살펴보기
+#             if c <= i:
+#                 count += 1
+#             else:
+#                 count += 1
+#                 break
+        answer.append(count)
+
+    return answer
+
+
+### 신기한점은 prices를 deque선언 안하고 그냥 stack으로 보고 prices.pop(0)로 하면 time-out임 -왜지?
+
+
+
+
+
+
+
 
 
 
@@ -226,7 +304,6 @@ while True:
         print('>> wrong answer!')
 
 	
-
 
 #################################### queue / deque 완벽 이해하기 ##########################################################
 
