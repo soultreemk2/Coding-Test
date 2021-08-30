@@ -270,14 +270,23 @@ def solution(prices):
 
 # 유효한 괄호
 
+def solution(s):
+    stack = []
+    table = {
+        ')':'(',
+        '}':'{',
+        ']':'[',
+    }
+
+    for char in s:
+        if char not in table:  
+            stack.append(char)            # ['(']
+        elif table[char] != stack.pop():  
+            return False
+    return len(stack) == 0 # 예외처리 (스택이 비어있는지 여부)
 
 
-
-
-
-
-
-
+------------------------------------------------------------------------------------------------------------------------------------------
 
 # 중복문자 제거
 
@@ -302,10 +311,22 @@ def solution(s):
 
 
 
-
+------------------------------------------------------------------------------------------------------------------------------------------
 
 # 일일온도
+## 다시 풀기 - 어렵..
 
+def dailyTemperatures(T):
+	answer = [0] * len(T)
+	stack = []
+
+	for i, temp in enumerate(T):
+	    while stack and T[stack[-1]] < temp:
+		index = stack.pop()
+		answer[index] = i - index
+	    stack.append(i)
+	
+	return answer
 
 
 
