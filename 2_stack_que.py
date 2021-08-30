@@ -282,42 +282,23 @@ def solution(prices):
 # 중복문자 제거
 
 s = "cbacdcbc"
-stack = []
-counter = collections.Counter(s)
 
-for char in s:
-	if stack[-1] >= char and counter[stack[-1]] > 0:
-		stack.pop()
-	
-	if char in seen:
-		
-		
-	elif counter[char
-	
-	
-stack.append(
-	
-	
 def solution(s):
-	for char in s:
-	    counter[char] -= 1
+	stack = []
+	counter = collections.Counter(s)
 	
-	    if char in seen:
+	for char in s:
+	    counter[char] -= 1 # 체크한것 (for문 돈것은 count 하나씩 차감)
+
+	    if char in stack:  # char가 이미 stack에 들어가있으면 검사할 필요x, 스킵(다음 char로 continue)
 		continue
 
-	    while stack and char < stack[-1] and counter[stack[-1]] > 0: # 검사한
-		seen.remove(stack.pop()) 
+	    while stack and char < stack[-1] and counter[stack[-1]] > 0:
+		stack.pop()
 
-	    stack.append(char)
-	    seen.add(char)
+	    stack.append(char) # if문 걸릴게 없으면 (stack이 비어있으면) 얘부터 실행
 
 	return ''.join(stack)
-
-# count에 남아있고 & 바로 뒤 문자보다 더 크면 pop
-# count에 남아있고 & 바로 뒤 문자보다 작으면 그대로 두기
-# count에 하나 뿐이면 그대로 두기 (pass)
-
-# 끝까지 돌았는데도 count에 남아있으면 삭제
 
 
 
