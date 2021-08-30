@@ -1,5 +1,4 @@
 # 더 맵게
-## (내가 짠거)
 
 import heapq
 
@@ -11,9 +10,9 @@ def solution(scoville,K):
         a = heapq.heappop(scoville)
         b = heapq.heappop(scoville)
         solution += 1
-        heapq.heappush(scoville, a+2*b)
+        heapq.heappush(scoville, a+2*b) # 힙정렬 (if문 걸리기 전까지 계속 반복 -> solution도 계속 +1 )
 
-        if scoville[0] >= K:
+        if scoville[0] >= K:  # 가장 작은 값이 K보다 크면
             return solution
         
     # while문을 다 돌고 난 후에도 (즉 a,b를 heap에 계속 넣어주는 작업을 scoville에 원소가 남아있을 때 까지 무한 반복) 했음에도
@@ -23,34 +22,34 @@ def solution(scoville,K):
     
     
     
+  
     
 
+------------------------------------------------------------------------------------------------------------------------------------------
+# 파알인(456p~)
+------------------------------------------------------------------------------------------------------------------------------------------
+# 배열의 k번째 큰 요소
 
+import heapq
 
-#################################### 힙(heap) 완벽 이해 ###########################################
-# 힙은 정렬되지 않은 리스트에서 최소 값을 먼저 추출해주는 구조
-
-# 정렬되지 않은 배열에서 k번째로 큰 요소 추출
 nums = [4,1,7,3,8,5] 
 k = 3
 
 heap = list()
+# 1차 힙정렬
 for n in nums:
-    heapq.heappush(heap, n)
+    heapq.heappush(heap, n) # [1,3,5,4,8,7]
 
+# (최소값 추출 -> 힙정렬 -> 최소값 추출) - k번 반복
+for _ in range(k): # k번 추출
+    heapq.heappop(heap)   
 
-print(heap)
->>> [1, 3, 5, 4, 8, 7]
+# [1,3,5,4,8,7] -> [3,5,4,8,7]           1번째 작은값 추출
+# [3,5,4,8,7] -> [5,4,8,7] -> [4,5,8,7]  2번째 작은 값 추출
+# [4,5,8,7]   -> [5,8,7]  ->  [5,7,8]    3번째 작은 값 추출
 
-
-for _ in range(len(nums)-k):  # 0,1,2 차례로 pop
-    heapq.heappop(heap)    
-    
-print(heap)    
->>> [5,7,8]
-
-print(heapq.heappop(heap))
->>> 5
+print(heapq.heappop(nums))
+>> 5  # 3번째로 큰 값
 
 
 
@@ -64,24 +63,22 @@ print(heapq.heappop(nums))
 >>> 5
 
 
-## 최대 힙
-# 힙에 튜플(tuple)를 원소로 추가하거나 삭제하면, 튜플 내에서 맨 앞에 있는 값을 기준으로 최소 힙이 구성되는 원리를 이용
 
-nums = [4, 1, 7, 3, 8, 5]
-heap = []
+## 부호 바꿔서
+heap = list()
+# 1차 힙정렬
+for n in nums:
+    heapq.heappush(heap, -n) 
 
-for num in nums:
-  heapq.heappush(heap, (-num, num))  # (우선 순위, 값)
+for _ in range(k): # k번 추출
+    heapq.heappop(heap)   
+    
+print(-heapq.heappop(heap))
 
-print(heap)
->>> [(-8, 8), (-7, 7), (-5, 5), (-1, 1), (-3, 3), (-4, 4)]
 
-while heap:
-  print(heapq.heappop(heap)[1])  # 값을 읽어올 때는 각 튜플에서 인덱스 1에 있는 값을 취하면 됨 (우선순위에는 관심 x)
-
-print(heap)
->>> 8 7 5 1 3 4
-
+-----------------------------------------------------------------------------------------------
+# 상위 k빈도요소
+##
 
 
 
