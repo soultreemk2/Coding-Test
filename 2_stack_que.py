@@ -281,9 +281,43 @@ def solution(prices):
 
 # 중복문자 제거
 
+s = "cbacdcbc"
+stack = []
+counter = collections.Counter(s)
 
+for char in s:
+	if stack[-1] >= char and counter[stack[-1]] > 0:
+		stack.pop()
+	
+	if char in seen:
+		
+		
+	elif counter[char
+	
+	
+stack.append(
+	
+	
+def solution(s):
+	for char in s:
+	    counter[char] -= 1
+	
+	    if char in seen:
+		continue
 
+	    while stack and char < stack[-1] and counter[stack[-1]] > 0: # 검사한
+		seen.remove(stack.pop()) 
 
+	    stack.append(char)
+	    seen.add(char)
+
+	return ''.join(stack)
+
+# count에 남아있고 & 바로 뒤 문자보다 더 크면 pop
+# count에 남아있고 & 바로 뒤 문자보다 작으면 그대로 두기
+# count에 하나 뿐이면 그대로 두기 (pass)
+
+# 끝까지 돌았는데도 count에 남아있으면 삭제
 
 
 
