@@ -22,79 +22,14 @@ def solution(numbers):
 
 # H-index
 
-# h번 이상 인용된 논문의 개수 couting (count_1) & 해당 논문 list에 담기 (list_1)
-# h번 이상 인용되지 않은 논문: list_2 = citations - list_1 
-
-# 1. count_1 > h
-# 2. list_2 내의 모든 요소가 h 이하여야 함
-
-# 1,2번 조건을 만족하는 h값들 중 가장 큰 값을 return
-
-
-### 시간 초과
+# citations[i]는 i번 논문이 인용된 횟수
+# len(citations) - i는 인용된 논문의 개수를 최댓값부터 하나씩 줄여나간 것이다 (최댓값을 찾아야 하므로 가장 큰 값부터 시작)
 def solution(citations):
+    answer = []
     citations.sort()
-    h = 0
-    h_list = []
-    
-    while h < citations[-2]:
-        count_2 = 0
-        for i in range(len(citations)):
-            if citations[i]>=h:
-                count_1 = len(citations[i:])
-                break
-
-        for n in citations[:i-1]:
-            if n <= h:
-                count_2 += 1
-
-        if count_1 >= h and count_2 == len(citations[:i-1]):
-            h_list.append(h)
-
-        h += 1
-    return max(h_list)
-
-
-### 시간 초과
-
-def solution(citations):
-    citations.sort()
-    h = 0
-    h_list = []
-    
-    while h < citations[-2]:
-        for i in range(len(citations)):
-            if citations[i]>=h:
-                count_1 = len(citations[i:])
-                break
-
-        if count_1 >= h :
-            h_list.append(h)
-            
-        h += 1
-        
-    return max(h_list)
-
-
-## 문제해결 접근 자체가 너무 복잡했음. h값을 하나씩 증가하는 접근 --> for i in range(len(citations))
-# 정답 풀이1
-def solution(citations):
-  sorted_citations = sorted(citations, reverse=True)
-  for i in range(len(sorted_citations)):
-    if sorted_citations[i] <= i: 
-      return i
-  return len(sorted_citations)
-
-
-# 정답 풀이 2
-
-
-def solution(citations):
-    citations = sorted(citations)
-    l = len(citations)
-    for i in range(l):
-        if citations[i] >= l-i:
-            return l-i
+    for i in range(len(citations)):
+        if citations[i] >= len(citations)-i: # h번 인용된 논문이 h편 이상
+            return len(citations)-i
     return 0
 
 ----------------------------------------------------------------------------------------------
@@ -154,7 +89,73 @@ def next_permutation_2(arr):
 ------------------------------------------------------------------------------------------------------------------------------------------
 # 파알인(479p~)
 ------------------------------------------------------------------------------------------------------------------------------------------
-  
+# 구간 병합
+def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+    merged = []
+    for i in sorted(intervals, key=lambda x:x[0]):
+        if merged and i[0] <= merged[-1][1]:
+            merged[-1][1] = max(i[1], merged[-1][1])
+        else:
+            merged += i,
+    return merged
+    
+# merged가 비어있으면 i를 넣어주고 시작해야함
+# 따라서 if merged and ~~ 조건을 넣어줌으로써 merged가 비어져있는 초기에 바로 else문으로 넘어가게 함
+
+# [1,8], [2,6] 경우에는 2<8 일지라도 6이 8보다 작으므로 8에 병합되어야함 --> max로 판단
+    
+------------------------------------------------------------------------------------------------------    
+# 가장 큰 수 - 다른 풀이(삽입 정렬)
+
+
+
+
+
+
+
+# 유효한 애너그램
+def solution(s,t):
+    return sorted(s) == sorted(t)
+
+
+------------------------------------------------------------------------------------------------------    
+# 색 정렬 
+## 투 포인터 --> mid 추가 (쓰리포인터)
+
+def solution(s):
+    i, j, k = 0, 0, len(s)
+    mid = 1
+    
+    while j < k:
+        if s[j] < mid:   # 오른쪽으로 보내질 필요가 없이 왼쪽 내에서만 움직이면 됨 (i와 swap)
+            s[i], s[j] = s[j], s[i]
+            i += 1
+            j += 1
+        
+        elif s[j] > mid: # 오른쪽으로 보내야함 (k와 swap)
+            k -= 1
+            s[j], s[k] = s[k], s[j]
+        else:            # swap할 필요 없음 (제 위치에 있는 것 --> j 위치만 증가)
+            j += 1 
+
+------------------------------------------------------------------------------------------------------    
+# 원점에서 k번째로 가까운 점
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
   
 
  
