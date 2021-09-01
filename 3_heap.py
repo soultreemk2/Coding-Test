@@ -78,7 +78,27 @@ print(-heapq.heappop(heap))
 
 -----------------------------------------------------------------------------------------------
 # 상위 k빈도요소
-##
+
+import collections
+import heapq
+
+def solution(nums):
+    freqs = collections.Counter(nums)
+    freqs_heap = list()
+    topk = []
+    # 최대힙으로 구현하기 위해 -로 삽입
+    for f in freqs:
+        heapq.heappush(freqs_heap, (-freqs[f], f))
+        
+    # 총 k번의 최소freq(최대값) pop --> topk에 append
+    for _ in range(k):
+        topk.append(heapq.heappop(freqs_heap)[1])
+    
+    return topk
+
+
+-----------------------------------------------------------------------------------------------
+
 
 
 
