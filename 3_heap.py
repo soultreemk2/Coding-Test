@@ -101,7 +101,7 @@ def solution(nums):
 # 라면공장 - 지금은 사라짐
 ## 다시 풀기
 
-
+https://johnyejin.tistory.com/74
 
 
 
