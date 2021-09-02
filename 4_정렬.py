@@ -141,8 +141,37 @@ def solution(s):
 ------------------------------------------------------------------------------------------------------    
 # 원점에서 k번째로 가까운 점
 
+def kClosest(points,k):
+    temp = []
+    for i,p in enumerate(points):
+        i = p[0]**2 + p[1]**2
+        temp.append([i,p])
+
+    arr = sorted(temp, key=lambda x:x[0])
+    answer = []
+    for i in range(k):
+        answer.append(arr[i][1])
+
+    return answer
 
 
+## 힙으로도 풀이 가능
+# k번 추출 -> 우선순위 큐(힙)로 k번 출력
+
+import heapq
+
+def solution(points, k):
+    heap = list()
+    for (x,y) in points:
+        dist = x**2 + y**2
+        heapq.heappush(heap, (dist,x,y))
+        
+    answer = []
+    for _ in range(k): # dist 최소 k개
+        (dist,x,y) = heapq.heappop(heap)
+        answer.append((x,y))
+        
+    return answer
 
 
 
