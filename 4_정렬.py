@@ -18,6 +18,53 @@ def solution(numbers):
     numbers.sort(key=lambda x: x*3, reverse=True)
     return str(int(''.join(numbers)))
 
+
+
+# 다른 풀이 - 삽입 정렬
+class Solution:
+    
+    # 맨 앞에서부터 자릿수 단위로 비교
+    # 즉, 9는 30보다 맨 앞자리 수가 더 크므로 9가 더 앞에 와야함
+    # 쉽게 비교하려면 930과 309중 어떤게 더 큰지 비교 --> 더 큰값을 맨 앞으로 swap
+  
+    def to_swap(n1,n2):
+        return str(n1) + str(n2) < str(n2) + str(n1) # true 이면 자리를 바꿔야함
+    
+    # 1) i-1과 i의 스왑여부를 결정
+    # 2) 스왑이 안일어나면 i를 다음 순서로 넘기고
+    # 3) 스왑이 일어나면 일어난 지점부터 그 앞에 숫자들까지 다시 전부 스왑을 해주어야함
+    # 4) 3) 스텝을 지나면 i를 다음 순서로 넘김
+    
+    def largestNumber(nums):
+        i = 1
+        while i < len(nums):
+            j = i
+            while j > 0 and Solution.to_swap(nums[j-1],nums[j]): # swap이 일어나면 그 앞에 있는 숫자들 전부 다시 비교 
+                nums[j-1],nums[j] = nums[j], nums[j-1]  # i는 고정, (j만 움직이기)
+                j -= 1
+            i += 1 # swap이 안일어나면 (혹은 swap이 이루어진 후 그 앞 문자열까지 다 비교 후에) 다음 판단으로
+            
+        return ''.join(list(map(str,nums)))
+
+
+    
+# 다른 풀이 - 커스텀정렬(cmp to key)
+
+import functools
+
+def comparator(a,b):
+    t1 = a+b
+    t2 = b+a
+    return (int(t1) > int(t2)) - (int(t1) < int(t2)) #  t1이 크다면 1  // t2가 크다면 -1  //  같으면 0
+
+def solution(numbers):
+    n = [str(x) for x in numbers]
+    n = sorted(n, key=functools.cmp_to_key(comparator),reverse=True)
+    answer = str(int(''.join(n)))
+    return answer
+    
+    
+    
 ----------------------------------------------------------------------------------------------
 
 # H-index
@@ -104,19 +151,6 @@ def merge(self, intervals: List[List[int]]) -> List[List[int]]:
 
 # [1,8], [2,6] 경우에는 2<8 일지라도 6이 8보다 작으므로 8에 병합되어야함 --> max로 판단
     
-------------------------------------------------------------------------------------------------------    
-# 가장 큰 수 - 다른 풀이(삽입 정렬)
-
-
-
-
-
-
-
-# 유효한 애너그램
-def solution(s,t):
-    return sorted(s) == sorted(t)
-
 
 ------------------------------------------------------------------------------------------------------    
 # 색 정렬 
