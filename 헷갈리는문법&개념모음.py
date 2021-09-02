@@ -246,3 +246,79 @@ b = [1,2]
 
 list(set(a) - set(b))
 >> [3]
+
+
+######################### 커스텀 정렬 (cmp to key) ######################################
+
+
+
+
+
+
+
+
+
+
+
+
+########################## 소수 판별 알고리즘 ##########################
+# 소수란 '1과 자기자신'을 제외한 숫자로 나누어지지 않는 수
+
+def is_prime_number(x):
+    if x == 1:
+        return False
+    else:
+        for i in range(2, x): # 2부터 (x - 1)까지의 모든 수를 확인하며
+            if x % i == 0:    # x가 해당 수로 나누어떨어진다면
+                return False # 소수가 아님
+        
+    return True # for문에서 if문에 걸러지는게 아무것도 없으면, 즉 1과 자신을 제외한 수로는 나누어지지 않으면 소수임
+
+
+
+############### permutation, combination ##########################
+
+from itertools import permutations
+
+a = [1,2,3]
+permute = permutations(a,2)
+
+print(list(permute))
+>>> [(1,2),(1,3),(2,1),(2,3),(3,1),(3,2)]
+
+
+a = [1,2,3]
+combi = combinations(a,2)
+    
+print(list(combi))
+>>> [(1,2),(1,3),(2,3)]
+
+## 만일 이거를 ['12','13','23'] 이렇게 표현하고 싶으면
+arr = []
+for p in list(permutations(a,2)):
+    arr.append(''.join(list(map(str,p))))
+
+
+
+#################### 문자열  ##########################
+# 문자열 나누기
+str = "Hi my name is limcoing" 
+splitted_str = str.split() 
+print(splitted_str)
+>>> ['Hi', 'my', 'name', 'is', 'limcoing'] 
+
+# 문자열 합치기
+joined_str = ''.join(splitted_str) 
+print(joined_str)
+>>> Himynameislimcoing
+
+
+a = ('1','2','5')
+a_join = ''.join(a)
+print(a_join)
+>>> 125
+
+
+
+
+
