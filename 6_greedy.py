@@ -236,7 +236,8 @@ def solution(number, k):
 
 -----------------------------------------------------------------------------------------------------------------
 # 구명보트
-              
+## 가장 효율적으로 태우려면, 무게가 가장 작은 사람과 가장 큰사람을 엮어줘야함   
+    
 ## 투 포인터
 def solution(people, limit):
     people.sort()
@@ -272,12 +273,13 @@ def solution(people, limit):
     
          
 ## stack으로도 풀 수 있음
-
+## 엮어지면 --> 둘다 pop / 안엮어지면 --> 가장 큰 사람을 따로 태우고 (+1) 그보다 바로 앞 무게 사람을 엮어봄  
+ 
 def solution(people, limit):
     answer = 0
     poo = sorted(people)
     while poo:
-        if len(poo) == 1:
+        if len(poo) == 1: # 예외처리
             answer += 1
             break
         if poo[0] + poo[-1] > limit:
@@ -288,9 +290,5 @@ def solution(people, limit):
             poo.pop()
             answer += 1
     return answer              
-
-
-
-
 
 
