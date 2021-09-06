@@ -65,21 +65,21 @@ def stock3(stock):
 [5,0] [7,0] [5,2] [6,1] [4,4] [7,1] # 4번째 인덱스에 [4,4]
 
 
+import heapq
 
+# 최대힙으로 구현해서 최대값부터 차례대로 추출(7,7,6,5,5,4)해서 해당 인덱스에 append
+def solution(people):
+    heap = []
+    for p in people:
+        heapq.heappush(heap,(-p[0],p[1])) # 최대힙 구현
 
+    answer = []
+    for _ in range(len(heap)): # 차례대로 추출, 해당 인덱스에 삽이
+        a = heapq.heappop(heap)
+        answer.insert(a[1], [-a[0],a[1]]) # inset(위치, 삽입요소)
+        
+    return answer
 
-
-
-
-  
-  
-    
-    
-    
-    
-    
-    
-    
   
   
 -----------------------------------------------------------------------------------------------------------------
