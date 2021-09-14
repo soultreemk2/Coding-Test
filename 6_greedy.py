@@ -112,12 +112,56 @@ def scheduler(tasks):
 
 -----------------------------------------------------------------------------------------------------------------
 # 주유소
-# 왜안풀었지?
+
+# 풀이1 - O(N^2)
+
+# 모든 주유소를 방문 가능한지 점검하고 가능한 경우 해당 출발점을 return
+# 중간에 끊길 경우 (fuel가 음수) 다음번 출발점으로 넘어가서 다시 반복
+
+# start = 0일때 --> 0,1,2,3,4 순차방문 --> 중간에 끊기면(연료<0되는지점발생) 다음 출발점으로
+# start = 1일때 --> 1,2,3,4,0 순차방문 --> 중간에 끊기면(연료<0되는지점발생) 다음 출발점으로
+# start = 2일때 --> 2,3,4,0,1 순차방문 --> 
+
+## 안끊기고 쭉 for문이 돌아가면 해당 start값을 return
+
+
+def solution(gas,cost):
+    fuel = 0
+    for start in range(len(gas)):
+        for i in range(start, len(gas)+start):
+            index = i % len(gas)
+
+            can_travel = True
+            if fuel + gas[index] - cost[index] < 0: # 출발지점에서 중간에 끊기면(연료<0) for문 break. 다음 start로
+                can_travel = False 
+                break
+            else:
+                fuel += gas[index] - cost[index]  # start 이후 한번도 안끊겼다면 can_travel = True
+
+        if can_travel:
+            return start
+        
+    return -1
 
 
 
+# 풀이2 - O(N)
 
+# 성립되지 않는 지점(연료<0)이 있다면 그 앞은 전부 출발점이 될 수 없음
+# 해당 지점을 제외하면서 출발점을 찾기
 
+def solution(gas, cost):
+    if sum(gas) < sum(cost):
+        return -1
+    
+    start, fuel = 0,0
+    for i in range(len(gas)):
+        # 출발점이 안되는 지점 판별
+        if fuel + gas[i] - cost[i] < 0:
+            start = i+1  # 출발점이 안되는 지점은 제외하고 그 다음 지점을 시작점으로
+            fuel = 0 
+        else:
+            fuel += gas[i] - cost[i]
 
 
 
