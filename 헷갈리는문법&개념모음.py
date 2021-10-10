@@ -284,7 +284,9 @@ list(set([tuple(item) for item in items])) # [(1, 2), (1, 3), (2, 1)]
 list(set([tuple(set(item)) for item in items]))  # [(1, 2), (1, 3)]
 
 
-
+# 참고) hashable이란?
+https://analytics4everything.tistory.com/138
+	
 
 
 ######################### 커스텀 정렬 (cmp to key) ######################################
