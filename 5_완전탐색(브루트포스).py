@@ -94,3 +94,78 @@ def solution(brown, yellow):
             return [xy[0]+2,xy[1]+2]
 
 
+---------------------------------------------------------------------------------------------------------
+## 백준 - 연산자 끼워넣기 (재귀함수)
+
+# 브루트포스 풀이
+
+from itertools import permutations
+
+n = int(input())
+o = ['+','-','*','/']
+num = list(map(int,input().split()))
+op = list(map(int,input().split())) # + - * /
+oper = []
+for i in range(4):
+    for j in range(op[i]):
+        oper.append(o[i])
+        
+operator = list(set(permutations(oper, len(oper)))) ## (+,+..)처럼 중복된 문자로 인해 perm결과도 중복된것 많음 --> set으로 제거        
+
+# 연산자 정의
+answer = []
+for op in operator:
+    n = num[0]
+    for i in range(len(num)-1):
+        if op[i] == '+':
+            n += num[i+1]
+        elif op[i] == '-':
+            n -= num[i+1]
+        elif op[i] == '*':
+            n *= num[i+1]
+        else:
+            if n//num[j+1] < 0:
+                n = -(-n//num[i+1])
+            else:
+                n = n//num[i+1]
+                
+    answer.append(n)
+print(max(answer))
+print(min(answer))
+
+
+## 재귀함수 풀이
+
+n = 6
+numbers = [1,2,3,4,5,6]
+add, sub, mul, div = 2,1,1,1
+ 
+ 
+answer = []
+
+def solve(i, num, add, sub, mul, div):
+    # 종료조건
+    if i == n:
+        answer.append(num)
+        
+    if add > 0:
+        solve(i+1, num+numbers[i], add-1, sub, mul, div)
+    if sub > 0:
+        solve(i+1, num-numbers[i], add, sub-1, mul, div)
+    if mul > 0:
+        solve(i+1, num*numbers[i], add, sub, mul-1, div)
+    if div > 0:
+        if num < 0:
+            solve(i+1, -(-num//numbers[i]), add, sub, mul, div-1)
+        else:
+            solve(i+1, num//numbers[i], add, sub, mul, div-1)
+    
+    
+solve(1, numbers[0], add, sub, mul, div)
+
+print(max(answer))
+print(min(answer))
+
+
+
+
