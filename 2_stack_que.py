@@ -331,6 +331,7 @@ def dailyTemperatures(T):
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 # 백준 - 괄호의 값
+## 개어렵....
 
 
 s = input().rstrip()
@@ -340,7 +341,7 @@ answer = 0
 for i in s:
     if i == ")":
         t = 0
-        while len(stack) != 0:
+        while stack:
             top = stack.pop()
             if top == "(":
                 if t == 0:
@@ -353,9 +354,10 @@ for i in s:
                 exit(0)
             else:
                 t = t + int(top)
+		
     elif i == "]":
         t = 0
-        while len(stack) != 0:
+        while stack:
             top = stack.pop()
             if top == "[":
                 if t == 0:
@@ -363,11 +365,13 @@ for i in s:
                 else:
                     stack.append(3 * t)
                 break
+		
             elif top == "(":
                 print(0)
                 exit(0)
             else:
                 t = t + int(top)
+		
     else:
         stack.append(i)
 
@@ -379,7 +383,5 @@ for i in stack:
         answer += i
 
 print(answer)
-
-
 
 
