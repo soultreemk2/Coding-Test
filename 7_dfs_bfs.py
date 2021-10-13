@@ -126,5 +126,49 @@ def solution(nums):
 ---------------------------------------------------------------------------------------------
 
 # 백준 - 미로탐색
+## bfs를 이용한 최단경로 탐색
+
+N, M = map(int, input().split())
+
+matrix = []
+
+for _ in range(N):
+    matrix.append(list(map(int, input())))
+
+
+def bfs(x,y):
+    dx = [-1,1,0,0] # 좌/우
+    dy = [0,0,1,-1] # 상/하
+    
+    queue = [(x,y)]
+    
+    # 상하좌우가 1인 것이 여러개 있을수 있으므로 while문이 끝날때까지 반복
+    while queue:
+        x, y = queue.pop(0)
+
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            
+            # 범위가 벗어나지 않는 애들만
+            if 0 <= nx < N and 0 <= ny < M:
+                if matrix[nx][ny] == 1:
+                    matrix[nx][ny] = matrix[x][y] + 1
+                    queue.append((nx,ny))
+                    
+    return matrix[N-1][M-1]
+    
+    
+print(bfs(0,0))
+
+
+
+
+
+
+
+
+
+
 
 
