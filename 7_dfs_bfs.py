@@ -1,16 +1,27 @@
 # 프로그래머스 - 타겟 넘버
 
 
+answer = 0
+def DFS(idx, numbers, target, value):
+    global answer
+    if idx == len(numbers) and target == value:
+        answer += 1
+        return
+    if idx == len(numbers):
+        return
 
+    DFS(idx+1,numbers,target,value+numbers[idx])
+    DFS(idx+1,numbers,target,value-numbers[idx])
 
-
-
+def solution(numbers, target):
+    global answer
+    DFS(0,numbers,target,0)
+    return answer
 
 
 ---------------------------------------------------------------------------------------------
 
 # 파알인- 전화번호 문자 조합
-## 다시 
 
 digits = "235"
 dic = {"2":"abc", "3":"def", "4":"ghi","5":"jkl",
@@ -19,6 +30,7 @@ dic = {"2":"abc", "3":"def", "4":"ghi","5":"jkl",
 result = []
 
 def dfs(index, path):
+    # 끝까지 탐색 후 백트래킹 (조건에 맞는 것만 결과에 append)
     if len(path) == len(digits):
         result.append(path)
         return
@@ -89,7 +101,6 @@ def solution(candidates, target):
 
 ---------------------------------------------------------------------------------------------
 
-
 # 파알인- 부분 집합
 result = []
 
@@ -108,5 +119,12 @@ def solution(nums):
   
 >> solutions([1,2,3])
 >>> [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+# 백준 - 미로탐색
 
 
