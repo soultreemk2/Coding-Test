@@ -103,10 +103,34 @@ def solution(numbers, hand):
 
 ------------------------------------------------------------------------------------------------------------------------------------
 # 크레인 인형뽑기 게임
+def solution(board, moves):
+    answer = 0
+    stack = []
+    for m in moves:
+        for i in range(len(board[0])):
+            if board[i][m-1] != 0:
+                stack.append(board[i][m-1])
+                board[i][m-1] = 0
 
+                if len(stack) > 1 and stack[-1] == stack[-2]:
+                    stack.pop()
+                    stack.pop()
+                    answer += 2
+                break  # 안쪽for문 빠져나옴 -> 다음 m으로 넘어가기
+    return answer
   
+------------------------------------------------------------------------------------------------------------------------------------
+# 음양 더하기
+def solution(signs, absolutes):
+    answer = 0
+    for a,b in list(zip(absolutes, signs)):
+        if b == "false":
+            a = -a
+        answer += a
+    return answer
 
-
+------------------------------------------------------------------------------------------------------------------------------------
+# 소수만들기
 
 
 
