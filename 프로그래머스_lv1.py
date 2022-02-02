@@ -130,8 +130,19 @@ def solution(signs, absolutes):
     return answer
 
 ------------------------------------------------------------------------------------------------------------------------------------
-# 소수만들기
-
+# 체육복
+def solution(n, lost, reserve):
+    new_reserve = list(set(reserve) - set(lost))
+    new_lost = list(set(lost) - set(reserve))
+    
+    for r in new_reserve:
+        if r-1 in new_lost:
+            new_lost.remove(r-1)
+        elif r+1 in new_lost:
+            new_lost.remove(r+1)
+    
+    return n - len(new_lost) 
+    # 전체 학생 수에서 체육복을 잃어버린(빌린 후에도) 학생 수를 빼면 체육수업을 들을 수 있는 학생 수
 
 
 ------------------------------------------------------------------------------------------------------------------------------------
@@ -148,4 +159,6 @@ def solution(N, stages):
 
     return sorted(faillist, key=lambda i: faillist[i], reverse=True)
 
+------------------------------------------------------------------------------------------------------------------------------------
+# 3진법 뒤집기
 
