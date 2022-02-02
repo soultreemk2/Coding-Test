@@ -134,7 +134,18 @@ def solution(signs, absolutes):
 
 
 
+------------------------------------------------------------------------------------------------------------------------------------
+# 실패율
+def solution(N, stages):
+    People = len(stages)
+    faillist = {} # 애초에 딕셔너리로 시작
+    for i in range(1, N + 1):
+        if People != 0:
+            faillist[i] = stages.count(i) / People
+            People -= stages.count(i)
+        else:
+            faillist[i] = 0
 
-
+    return sorted(faillist, key=lambda i: faillist[i], reverse=True)
 
 
