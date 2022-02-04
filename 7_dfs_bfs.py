@@ -162,8 +162,55 @@ def bfs(x,y):
 print(bfs(0,0))
 
 
+---------------------------------------------------------------------------------------------
+
+# 백준 - 전투
+
+# 색깔 별로(W,B) 인접해 있는 병사들의 숫자를 구하기 (bfs)
+# 색깔을 매개변수로 넣어서 해당 색깔에 대한 bfs만 계산하도록 구현
+
+from collections import deque
+
+visited = [[0] * n for i in range(m)]
+
+dx = [-1,1,0,0]
+dy = [0,0,-1,1]
+
+def bfs_color(x,y,color):
+    cnt = 0
+    queue = deque()
+    queue.append((x,y)) # bfs로 탐색된 좌표
+    visited[x][y] = 1
+    
+    while queue:
+        x,y = queue.popleft()
+        
+        for i in range(4): # 상하좌우로 탐색
+            nx = x+dx[i]
+            ny = y+dy[i]
+            if 0 <= nx < m and 0 <= ny < n:
+                if graph[nx][ny] == color and visited[nx][ny] != 1:
+                    visited[nx][ny] = 1
+                    queue.append((nx,ny))
+                    cnt += 1
+    return cnt + 1
 
 
+graph = [list(input()) for _ in range(5)]
+
+white, blue = 0,0
+for i in range(m):
+    for j in range(n):
+        if graph[i][j] == 'W' and not visited[i][j]:
+            white += bfs_color(i,j,'W') ** 2
+        elif graph[i][j] == 'B' and not visited[i][j]:
+            blue += bfs_color(i,j, 'B') ** 2
+            
+print(white,blue)
+
+---------------------------------------------------------------------------------------------
+
+# 백준 - 음식물 피하기
 
 
 
