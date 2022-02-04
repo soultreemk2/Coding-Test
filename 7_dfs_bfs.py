@@ -259,7 +259,8 @@ for i in range(N):
             ans  = dfs(i,j, trash)
             answer = max(ans, answer)
 
-
+            
+https://jinho-study.tistory.com/m/876
 ---------------------------------------------------------------------------------------------
 
 # 백준 - 음식물 피하기
