@@ -212,10 +212,55 @@ print(white,blue)
 
 # 백준 - 음식물 피하기
 
+N = 3
+M = 5
+K = 5
 
 
+trash = [[0]*M for i in range(N)]
+visited = [[False]*M for i in range(N)]
+
+for i in range(M):
+    r, c = map(int, input().split())
+    trash[r-1][c-1] = 1
+    
+from collections import deque
+
+dx = [-1,1,0,0]
+dy = [0,0,1,-1]
+queue = deque()
+
+def dfs(x,y, trash):
+    queue.append((x,y))
+    cnt = 1
+    visited[x][y] = True
+    
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            
+            if 0<=nx<N and 0<=ny<M:
+                 if trash[nx][ny] == 1 and not visited[nx][ny]:
+                        queue.append((nx,ny))
+                        trash[nx][ny] = 2
+                        visited[nx][ny] = True
+                        cnt += 1
+                        
+        return cnt
+                            
+    
+
+answer = 0
+for i in range(N):
+    for j in range(M):
+        if trash[i][j] == 1 and not visited[i][j]:
+            ans  = dfs(i,j, trash)
+            answer = max(ans, answer)
 
 
+---------------------------------------------------------------------------------------------
 
-
+# 백준 - 음식물 피하기
 
