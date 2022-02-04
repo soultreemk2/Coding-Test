@@ -172,29 +172,32 @@ def solution(n):
     return sum([i * 3**idx for idx, i in enumerate(reversed(answer))])
 
 ------------------------------------------------------------------------------------------------------------------------------------
-# 비밀지도
+# 비밀지도 - 다시
 def solution(n, arr1, arr2):
     # 2진수로 변환
-    def to_2(num):
+    def to_2(num, n):
         ans = []
         while True:
             num, res = divmod(num,2)
             ans.append(res)
             if num==0:
                 break
-        return ans  # [0,1,0,0,1]
+        if len(ans) < n:
+            ans.append(0)
+
+        return ans[::-1]
     
     answer = []
-
-    for n1,n2 in zip(arr1, arr2):
+    for n1, n2 in zip(arr1, arr2):
         result = ""
-        tmp = to_2(n1) + to_2(n2)  # [1,2,1,1,1]
+        tmp = [x+y for x,y in zip(to_2(n1,n),to_2(n2,n))]
         for num in tmp:
             if num >= 1:
                 result += "#"
             else:
                 result += " "
         answer.append(result)
+        
     return answer
 
 ------------------------------------------------------------------------------------------------------------------------------------
