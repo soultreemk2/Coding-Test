@@ -263,5 +263,103 @@ for i in range(N):
 https://jinho-study.tistory.com/m/876
 ---------------------------------------------------------------------------------------------
 
-# 백준 - 음식물 피하기
+# 백준 - 바이러스
+
+## dfs 방식
+from sys import stdin
+read = stdin.readline
+dic={}
+for i in range(int(read())):
+    dic[i+1] = set()
+for j in range(int(read())):
+    a, b = map(int,read().split())
+    dic[a].add(b)
+    dic[b].add(a)
+
+def dfs(start, dic):
+    for i in dic[start]:
+        if i not in visited:
+            visited.append(i)
+            dfs(i, dic)
+visited = []
+dfs(1, dic)
+print(len(visited)-1)
+
+
+## bfs방식
+from sys import stdin
+read = stdin.readline
+dic={}
+for i in range(int(read())):
+    dic[i+1] = set()
+for j in range(int(read())):
+    a, b = map(int,read().split())
+    dic[a].add(b)
+    dic[b].add(a)
+
+def bfs(start, dic):
+    queue = [start]
+    while queue:
+        for i in dic[queue.pop()]:
+            if i not in visited:
+                visited.append(i)
+                queue.append(i)
+visited = []
+bfs(1, dic)
+print(len(visited)-1)
+
+
+---------------------------------------------------------------------------------------------
+
+# 백준 - 16953번 A->B
+from collections import deque
+a,b = map(int, input().split())
+res = -1
+que = deque([(a,1)])
+
+while que:
+    i, cnt = que.popleft()
+    if i == b:
+        res = cnt
+        break
+    
+    if i*2 <= b:
+        que.append((i*2, cnt+1))
+    if int(str(i)+'1') <= b:
+        que.append((int(str(i)+'1'), cnt+1))
+print(res)
+
+
+
+---------------------------------------------------------------------------------------------
+
+# 백준 - 12851번 숨바꼭질
+
+from collections import deque
+
+def bfs(n):
+    q = deque([n])
+    visited[n][0] = 0
+    visited[n][1] = 1 
+    
+    while q:
+        x = q.popleft()
+        
+        for i in [x - 1, x + 1, x * 2]:
+            if 0 <= i <= 100000:
+                if visited[i][0] == -1: # 처음 도달한다면
+                    visited[i][0] = visited[x][0] + 1 # 걸린 시간 저장
+                    visited[i][1] = visited[x][1] # 경우의 수 저장
+                    q.append(i)
+                    
+                elif visited[i][0] == visited[x][0] + 1: # 처음이 아니라면 (하지만 최단 시간이라면)
+                    visited[i][1] += visited[x][1] # 경우의 수 갱신
+                    
+n, k = map(int, input().split())
+visited = [[-1, 0] for _ in range(100001)] # [지점 i에 도달하는데 걸린 시간, 경우의 수]
+
+bfs(n)
+print(visited[k][0])
+print(visited[k][1])
+
 
