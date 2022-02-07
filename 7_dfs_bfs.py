@@ -363,3 +363,78 @@ print(visited[k][0])
 print(visited[k][1])
 
 
+---------------------------------------------------------------------------------------------
+
+# 백준 - 이모티콘
+
+from collections import deque
+n = int(input())
+q = deque()
+q.append((1,0)) # (현재 임티 개수, 클립보드 임티 개수)
+visited = {}
+visited[(1,0)] = 0  # 최단시간을 구하는 문제이므로
+                    # 방문경로에 1씩 증가
+    
+while q:
+    s, c = q.popleft()
+    if s == n:
+        print(visited[(s,c)])
+        break
+    
+    
+    # 1. 화면의 모든 임티 복사
+    if (s,s) not in visited.keys():
+        visited[(s,s)] = visited[(s,c)] + 1
+        q.append((s,s))
+        
+    # 2. 화면의 임티 중 1개 삭제
+    if (s-1, c) not in visited.keys():
+        visited[(s-1, c)] = visited[(s,c)] + 1
+        q.append((s-1,c))
+        
+    # 3. 클립보드의 임티 붙여넣기
+    if (s+c, c) not in visited.keys():
+        visited[(s+c, c)] = visited[(s,c)] + 1
+        q.append((s+c, c))
+        
+---------------------------------------------------------------------------------------------
+
+# 백준 - 아기상어 2
+
+from collections import deque
+dx = [-1, -1, -1, 0, 1, 0, 1, 1]
+dy = [-1, 0, 1, 1, 1, -1, 0, -1]
+
+n, m = map(int, sys.stdin.readline().split())
+graph = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+
+def bfs():
+    q = deque()
+    # 상어가 있는 위치에서 탐색을 시작하기 위해
+    for i in range(n):
+        for j in range(m):
+            if graph[i][j] == 1:
+                q.append([i,j])
+
+
+    # 상어가 있는 위치 기준으로 최단거리 구하기
+    while q:
+        x,y = q.popleft() # 상어 위치
+        for i in range(8):
+            nx, ny = x + dx[i], y + dy[i]
+            if nx < 0 or ny < 0 or nx >= n or ny >= m:
+                continue
+            if graph[nx][ny] == 0:
+                q.append([nx,ny])
+                graph[nx][ny] = graph[x][y] + 1
+                
+bfs()
+dist = 0
+for i in range(n):
+    for j in range(m):
+        dist = max(arr[i][j],0)
+
+---------------------------------------------------------------------------------------------
+
+# 백준 - 달리기
+
