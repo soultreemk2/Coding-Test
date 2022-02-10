@@ -168,4 +168,64 @@ print(min(answer))
 
 
 
+---------------------------------------------------------------------------------------------------------
+## 백준 - 사탕게임
 
+n = int(input())
+candies=[]
+ans = 1
+ 
+for i in range(n):
+    temp =[]
+    temp_str = input()
+    for j in range(n):
+        temp.append(temp_str[j])
+    candies.append(temp)
+    
+
+    
+# 몇개 먹을 수 있는지 찾는 함수
+def search():
+    global ans
+    # 같은 열에서 몇개의 중복 사탕이 존재하는지 (행 방향으로 탐색)
+    for i in range(n):
+        cnt = 1
+        for j in range(n-1):
+            if candies[i][j]== candies[i][j+1]:
+                cnt+=1
+                ans = max(cnt,ans)
+            else:
+                cnt = 1
+        #ans = max(cnt,ans)
+    
+    # 같은 행에서 몇개의 중복 사탕이 존재하는지 (열 방향으로 탐색)
+    for i in range(n):
+        cnt = 1
+        for j in range(n-1):
+            if candies[j][i] == candies[j+1][i]:
+                cnt+=1
+                ans = max(cnt,ans)
+            else:
+                cnt = 1
+        #ans = max(cnt,ans)
+        
+        
+# [모든 인접한 두 자리 뒤집어보고 찾기]    
+# 가로 뒤집기
+for i in range(n):
+    for j in range(n-1):
+        candies[i][j],candies[i][j+1] = candies[i][j+1],candies[i][j]
+        search()
+        # 원복
+        candies[i][j],candies[i][j+1] = candies[i][j+1],candies[i][j]
+
+# 세로 뒤집기
+for i in range(n):
+    for j in range(n-1):
+        candies[j][i],candies[j+1][i] = candies[j+1][i],candies[j][i]
+        search()
+        # 원복
+        candies[j][i],candies[j+1][i] = candies[j+1][i],candies[j][i]
+
+        
+print(ans)
