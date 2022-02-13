@@ -269,5 +269,21 @@ print(max_cnt)
             
 ----------------------------------------------------------------------------------------------------
  # 백준 - 게으른 백곰
-            
+           
+water = [0] * 1000001
+for i in range(n):
+    water[arr[i][1]] = arr[i][0]
+
+_next = 2*k+1
+window = sum(ice[:next])
+answer = window
+
+for i in range(_next, 1000001):
+    window += (ice[i] - ice[i-_next])
+    answer = max(answer, window)
+    
+print(answer)
+                    
+----------------------------------------------------------------------------------------------------
+ # 백준 - 수열
             
