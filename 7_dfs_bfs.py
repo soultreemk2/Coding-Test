@@ -442,7 +442,7 @@ for i in range(n):
 
 ---------------------------------------------------------------------------------------------
 
-# 백준 - 가르침
+# 백준 - 가르침 - 다시풀기(어려움..)
 
 import sys
 
@@ -492,3 +492,68 @@ def dfs(idx, cnt):
 dfs(0, 0)
 print(answer)
 
+
+
+---------------------------------------------------------------------------------------------
+
+# 백준 - 파이프옮기기1
+
+#### dfs로 풀이 ####
+def dfs(x, y, direction):
+    global cnt
+    
+    if x == n-1 and y == n-1:
+        cnt += 1
+        return
+    
+    if direction == 0 or direction == 2:
+        if y+1 < n and location[x][y+1] == 0:
+            dfs(x, y+1, 0)
+    if direction == 1 or direction == 2:
+        if x+1 < n and location[x+1][y] == 0:
+            dfs(x+1, y, 1)
+    if direction == 0 or direction == 1 or direction == 2:
+        if x+1 < n and y+1 < n:
+            if location[x+1][y] == 0 and location[x][y+1] == 0 and location[x+1][y+1] == 0:
+                dfs(x+1, y+1, 2)
+                
+n = int(input())
+location = [list(map(int, input().split())) for _ in range(n)]
+cnt = 0
+
+dfs(0,1,0)
+print(cnt)
+
+
+
+#### DP로 풀이 ####
+n = int(input())
+graph = [[] for _ in range(n)]
+
+# 0은 가로, 1은 세로, 2는 대각선
+dp = [[[0] * n for _ in range(n)] for _ in range(3)]
+
+# 그래프 정보 입력
+for i in range(n):
+    graph[i] = list(map(int, input().split()))
+
+dp[0][0][1] = 1  # 첫 시작 위치
+
+# dp를 위해서는 윗 행을 사용해야하므로 첫 행을 먼저 초기화
+for i in range(2, n):
+    if graph[0][i] == 0:
+        dp[0][0][i] = dp[0][0][i - 1]
+
+for r in range(1, n):
+    for c in range(1, n):
+        # 현재위치가 대각선인 경우
+        if graph[r][c] == 0 and graph[r][c - 1] == 0 and graph[r - 1][c] == 0:
+            dp[2][r][c] = dp[0][r - 1][c - 1] + dp[1][r - 1][c - 1] + dp[2][r - 1][c - 1]
+
+        if graph[r][c] == 0:
+            # 현재 위치가 가로인 경우
+            dp[0][r][c] = dp[0][r][c - 1] + dp[2][r][c - 1]
+            # 현재 위치가 세로인 경우
+            dp[1][r][c] = dp[1][r - 1][c] + dp[2][r - 1][c]
+
+print(sum(dp[i][n - 1][n - 1] for i in range(3)))
