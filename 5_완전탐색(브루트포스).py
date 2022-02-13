@@ -229,3 +229,45 @@ for i in range(n):
 
         
 print(ans)
+
+
+
+
+```
+1) 투포인터 - 구간의 크기가 가변적
+2) 슬라이딩윈도우 - 구간 크기가 고정
+이전의 결과(w-1)를 써먹는 방향
+매번 처리되는 중복 요소를 버리지 않고 재사용 -> 계산낭비없이 효율적으로 처리
+```
+
+# 백준 - 블로그
+N, X = map(int, input().split())
+data = list(map(int, input().split())
+
+value = sum(data[:X])
+
+if max(data) == 0:
+    print("SAD")
+    
+else:
+    max_value = value
+    max_cnt = 1
+
+    for i in range(X, N):
+        value += data[i]
+        value -= data[i-X]
+
+        if value > max_value:
+            max_value = value
+            max_cnt = 1
+    
+        elif value=max_value:
+            max_cnt += 1
+            
+print(max_value)
+print(max_cnt)
+            
+----------------------------------------------------------------------------------------------------
+ # 백준 - 게으른 백곰
+            
+            
