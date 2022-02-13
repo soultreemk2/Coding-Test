@@ -385,3 +385,41 @@ for i in stack:
 print(answer)
 
 
+------------------------------------------------------------------------------------------------------------------------------------------
+# 백준 - 9012번 괄호
+def vps(string):
+    stack = []
+    for i in range(len(string)):
+        if string[i] == "(":
+            stack.append(i)
+        if string[i] == ")":
+            if stack:
+                stack.pop()
+            else:
+                return "NO"
+
+    if len(stack) == 0:
+        return "YES"
+    
+    return NO
+
+# 스택안쓰고 풀이
+n = int(input())
+for _ in range(n):
+    brackets = list(input())
+    cnt = 0
+    for b in brackets:
+        if b=="(":
+            cnt += 1
+        elif b==")":
+            cnt -= 1
+        if cnt < 0:
+            break
+    if cnt == 0:
+        print("YES")
+    else:
+        print("NO")
+	
+------------------------------------------------------------------------------------------------------------------------------------------
+# 백준 - 프린터 큐
+
